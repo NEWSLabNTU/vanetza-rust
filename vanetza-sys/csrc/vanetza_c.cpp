@@ -9,10 +9,7 @@
 #include <vanetza/net/cohesive_packet.hpp>
 #include <vanetza/net/ethernet_header.hpp>
 #include <vanetza/geonet/mib.hpp>
-
-// FIXME: This include does not compile.
-// #include <vanetza/geonet/router.hpp>
-
+#include <vanetza/geonet/router.hpp>
 #include "vanetza_c.hpp"
 
 namespace vn = vanetza;
@@ -27,12 +24,12 @@ void mib_del(c_mib self) {
 }
 
 c_router router_new(c_runtime runtime, c_mib mib) {
-    // return new gn::Router(*reinterpret_cast<vn::Runtime*>(runtime),
-    //                       *reinterpret_cast<gn::MIB*>(mib));
+    return new gn::Router(*reinterpret_cast<vn::Runtime*>(runtime),
+                          *reinterpret_cast<gn::MIB*>(mib));
 }
 
 void router_del(c_router self) {
-    // delete reinterpret_cast<gn::Router*>(self);
+    delete reinterpret_cast<gn::Router*>(self);
 }
 
 c_runtime manual_runtime_new() {
