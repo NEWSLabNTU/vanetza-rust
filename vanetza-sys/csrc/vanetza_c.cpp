@@ -16,6 +16,8 @@
 namespace vn = vanetza;
 namespace gn = vanetza::geonet;
 
+uint64_t mac_address_to_u64(vn::MacAddress &mac);
+
 c_mib mib_new() {
     return new gn::MIB();
 }
@@ -85,3 +87,56 @@ void tsb_data_request_del(c_tsb_data_request self) {
     delete reinterpret_cast<gn::TsbDataRequest*>(self);
 }
 
+
+c_address address_new1(uint64_t mac_addr) {
+    vn::MacAddress mid = vn::create_mac_address(mac_addr);
+    return new gn::Address(mid);
+}
+
+c_address address_new2(bool manually_configured, uint16_t station_type,
+                       uint16_t country_code, uint64_t mac_addr) {
+    vn::MacAddress mid = vn::create_mac_address(mac_addr);
+
+    auto ptr = new gn::Address(mid);
+    ptr->is_manually_configured(manually_configured);
+    ptr->station_type(static_cast<gn::StationType>(station_type));
+    ptr->country_code(country_code);
+    return ptr;
+}
+
+void address_del(c_address self) {
+    delete reinterpret_cast<gn::Address*>(self);
+}
+
+bool address_get_is_manually_configured(c_address self) {
+    auto addr = reinterpret_cast<gn::Address*>(self);
+    return addr->is_manually_configured();
+}
+
+uint16_t address_get_station_type(c_address self) {
+    auto addr = reinterpret_cast<gn::Address*>(self);
+    auto st = addr->station_type();
+    return static_cast<uint16_t>(st);
+}
+
+uint16_t address_get_country_code(c_address self) {
+    auto addr = reinterpret_cast<gn::Address*>(self);
+    auto code = addr->country_code();
+    auto raw = code.raw();
+    return static_cast<uint16_t>(raw);
+}
+
+uint64_t address_get_mid(c_address self) {
+    auto addr = reinterpret_cast<gn::Address*>(self);
+    auto mid = addr->mid();
+    auto value = mac_address_to_u64(mid);
+    return value;
+}
+
+uint64_t mac_address_to_u64(vn::MacAddress &mac) {
+    uint64_t value = 0;
+    for (std::size_t i = 0; i < 6; ++i) {
+        value |= mac.octets[i] << (8 * (5 - i));
+    }
+    return value;
+}

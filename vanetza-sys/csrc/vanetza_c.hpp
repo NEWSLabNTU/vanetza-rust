@@ -24,6 +24,7 @@ typedef void* c_gac_data_request;
 typedef void* c_gbc_data_request;
 typedef void* c_shb_data_request;
 typedef void* c_tsb_data_request;
+typedef void* c_address;
 
 // C functions
 EXPORT_C c_mib mib_new();
@@ -49,3 +50,11 @@ EXPORT_C void shb_data_request_del(c_shb_data_request self);
 
 EXPORT_C c_tsb_data_request tsb_data_request_new(c_mib mib, uint32_t its_aid);
 EXPORT_C void tsb_data_request_del(c_tsb_data_request self);
+
+EXPORT_C c_address address_new1(uint64_t mac_addr);
+EXPORT_C c_address address_new2(bool manually_configured, uint16_t station_type, uint16_t country_code, uint64_t mac_addr);
+EXPORT_C void address_del(c_address self);
+EXPORT_C bool address_get_is_manually_configured(c_address self);
+EXPORT_C uint16_t address_get_station_type(c_address self);
+EXPORT_C uint16_t address_get_country_code(c_address self);
+EXPORT_C uint64_t address_get_mid(c_address self);

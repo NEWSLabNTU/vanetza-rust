@@ -1,10 +1,12 @@
 mod its_aid;
 mod manual_runtime;
 mod runtime;
+mod station_type;
 
 pub use its_aid::*;
 pub use manual_runtime::*;
 pub use runtime::*;
+pub use station_type::*;
 
 pub mod aid {
     use super::ItsAid;
