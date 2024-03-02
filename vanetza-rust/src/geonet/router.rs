@@ -1,12 +1,12 @@
 use super::mib::MIB;
-use crate::common::runtime::Runtime;
+use crate::common::Runtime;
 use vanetza_sys as sys;
 
 pub struct Router(pub(crate) sys::c_router);
 
 impl Router {
-    pub fn new(runtime: &Runtime, mib: &MIB) -> Self {
-        unsafe { Self(sys::router_new(runtime.0, mib.0)) }
+    pub fn new(runtime: &impl Runtime, mib: &MIB) -> Self {
+        unsafe { Self(sys::router_new(runtime.to_raw_ptr(), mib.0)) }
     }
 }
 

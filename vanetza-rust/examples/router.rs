@@ -1,12 +1,10 @@
 use vanetza::{
-    common::runtime::Runtime,
+    common::ManualRuntime,
     geonet::{mib::MIB, router::Router},
 };
 
 fn main() {
-    let rt = Runtime::new_manual_runtime();
+    let rt = ManualRuntime::default();
     let mib = MIB::default();
-
-    // TODO: not implemented yet
-    // let _router = Router::new(&rt, &mib);
+    let router = Router::new(&rt, &mib);
 }

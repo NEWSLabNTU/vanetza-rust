@@ -16,13 +16,15 @@
 typedef void* c_mib;
 typedef void* c_router;
 typedef void* c_runtime;
+typedef void* c_manual_runtime;
+typedef void* c_clock;
 
-// C functions.
+// C functions
 EXPORT_C c_mib mib_new();
 EXPORT_C void mib_del(c_mib self);
 
 EXPORT_C c_router router_new(c_runtime runtime, c_mib mib);
 EXPORT_C void router_del(c_router self);
 
-EXPORT_C c_runtime manual_runtime_new();
+EXPORT_C c_manual_runtime manual_runtime_new();
 EXPORT_C void runtime_del(c_runtime self);
