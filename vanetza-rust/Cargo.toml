@@ -4,6 +4,8 @@ version = "0.1.0"
 edition = "2021"
 
 [dependencies]
+autocxx = "0.26.0"
+cxx = "1.0.118"
 mac_address = "1.1.5"
 num-derive = "0.4.2"
 num-traits = "0.2.18"

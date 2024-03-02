@@ -1,4 +1,3 @@
-use std::env;
 use std::path::{Path, PathBuf};
 
 const VANETZA_LIBRARIES: &[&str] = &[
@@ -23,12 +22,10 @@ fn main() {
     // Vanetza header and library files are installed.
     let vanetza_dir = build_vanetza();
 
-    // Build the C wrapper within `csrc` directory, requiring a
-    // compiled Vanetza.
-    build_c_wrapper(&vanetza_dir);
-
     // Generate Rust FFI code by translating C headers in `csrc`.
-    generate_rust_bindings();
+    generate_rust_bindings(&vanetza_dir);
+
+    link_geographic_lib();
 }
 
 fn build_vanetza() -> PathBuf {
@@ -46,44 +43,34 @@ fn build_vanetza() -> PathBuf {
     dst_dir
 }
 
-fn build_c_wrapper(vanetza_dir: &Path) {
-    // Link GeographicLib, required by Vanetza.
-    link_geographic_lib();
+fn generate_rust_bindings(vanetza_dir: &Path) {
+    println!("cargo:rerun-if-changed=src/lib.rs");
 
-    // Trigger re-run if the C wrapper code is changed.
-    println!("cargo:rerun-if-changed=csrc/vanetza_c.cpp");
-    let include_dir = vanetza_dir.join("include");
+    let include_dirs = {
+        let vanetza_include_dir = vanetza_dir.join("include");
+        let wrapper_include_dir = PathBuf::from("csrc");
 
-    // HACK: The additional include path avoids "asn_application.h"
-    // header not found error.
-    let asn1_support_include_dir = include_dir.join("vanetza").join("asn1").join("support");
+        // HACK: The additional include path avoids "asn_application.h"
+        // header not found error.
+        let asn1_support_include_dir = vanetza_include_dir
+            .join("vanetza")
+            .join("asn1")
+            .join("support");
 
-    // Build and link the C wrapper source code.
-    cc::Build::new()
-        .cpp(true)
-        .includes([include_dir, asn1_support_include_dir])
-        .file("csrc/vanetza_c.cpp")
-        .compile("vanetza_c");
-}
+        [
+            vanetza_include_dir,
+            asn1_support_include_dir,
+            wrapper_include_dir,
+        ]
+    };
 
-fn generate_rust_bindings() {
-    // Trigger re-run if C wrapper header is changed.
-    println!("cargo:rerun-if-changed=csrc/vanetza_c.hpp");
-
-    let out_dir = PathBuf::from(env::var_os("OUT_DIR").unwrap());
-    let bindings_path = out_dir.join("bindings.rs");
-
-    // Generate Rust bindings.
-    let bindings = bindgen::Builder::default()
-        .header("csrc/vanetza_c.hpp")
-        .parse_callbacks(Box::new(bindgen::CargoCallbacks::new()))
-        .generate()
+    let mut cc_build = autocxx_build::Builder::new("src/lib.rs", include_dirs)
+        .build()
         .expect("Unable to generate bindings");
 
-    // Write the bindings to the $OUT_DIR/bindings.rs file.
-    bindings
-        .write_to_file(bindings_path)
-        .expect("Couldn't write bindings.");
+    cc_build
+        .flag_if_supported("-std=c++14")
+        .compile("vanetza_rust");
 }
 
 fn link_geographic_lib() {
