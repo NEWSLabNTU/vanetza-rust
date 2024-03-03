@@ -16,7 +16,7 @@ namespace units
 
     class AngleWrapper {
     public:
-        AngleWrapper(Angle& src) :
+        AngleWrapper(Angle src) :
             m_inner(src)
         {}
 
@@ -33,7 +33,7 @@ namespace units
 
     class GeoAngleWrapper {
     public:
-        GeoAngleWrapper(GeoAngle& src) :
+        GeoAngleWrapper(GeoAngle src) :
             m_inner(src)
         {}
 

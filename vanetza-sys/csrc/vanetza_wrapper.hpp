@@ -10,4 +10,4 @@
 #include "vanetza_wrapper/units/time.hpp"
 #include "vanetza_wrapper/units/velocity.hpp"
 
-// #include "vanetza_wrapper/geonet/areas.hpp"
+#include "vanetza_wrapper/geonet/areas.hpp"

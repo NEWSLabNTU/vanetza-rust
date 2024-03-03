@@ -1,7 +1,10 @@
 use crate::utils::{FromCxxRef, ToCxxUniquePtr};
 use autocxx::prelude::*;
 use cxx::UniquePtr;
-use uom::si::{angle::degree, angle::radian, f64 as si};
+use uom::si::{
+    angle::{degree, radian},
+    f64 as si,
+};
 use vanetza_sys::vanetza_wrapper::units::{
     AngleWrapper as CxxAngle, GeoAngleWrapper as CxxGeoAngle, TrueNorthWrapper as CxxTrueNorth,
 };

@@ -96,6 +96,12 @@ include_cpp! {
     generate!("vanetza::geonet::CartesianPosition")
     generate!("vanetza::geonet::GeodeticPosition")
 
+    generate!("vanetza::geonet::local_cartesian")
+    generate!("vanetza::geonet::inside_or_at_border")
+    generate!("vanetza::geonet::geometric_function")
+    generate!("vanetza::geonet::geometric_function1")
+    generate!("vanetza::geonet::geometric_function2")
+
     // vanetza/geonet/mib.hpp
     generate!("vanetza::geonet::ManagementInformationBase")
     generate_pod!("vanetza::geonet::AddrConfMethod")
