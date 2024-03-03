@@ -12,7 +12,7 @@ impl Area {
         todo!();
     }
 
-    pub fn area_size(&self) -> Area {
+    pub fn area_size(&self) -> crate::units::Area {
         todo!();
     }
 

@@ -20,11 +20,14 @@ namespace units
             m_inner(src)
         {}
 
-        double as_radians() {
+        AngleWrapper(double radians) :
+            m_inner(radians * boost::units::si::radian)
+        {}
+
+        double as_radians() const {
             return m_inner / boost::units::si::radian;
         }
 
-    private:
         Angle m_inner;
     };
 
@@ -34,11 +37,14 @@ namespace units
             m_inner(src)
         {}
 
-        double as_degrees() {
+        GeoAngleWrapper(double degrees) :
+            m_inner(degrees * boost::units::degree::degree)
+        {}
+
+        double as_degrees() const {
             return m_inner / boost::units::degree::degree;
         }
 
-    private:
         GeoAngle m_inner;
     };
 
@@ -48,12 +54,15 @@ namespace units
             m_inner(src)
         {}
 
-        double as_degrees() {
+        TrueNorthWrapper(double degrees) :
+            m_inner(degrees * true_north_degrees)
+        {}
+
+        double as_degrees() const {
             TrueNorth zero(0.0 * true_north_degrees);
             return (m_inner - zero) / boost::units::degree::degree;
         }
 
-    private:
         TrueNorth m_inner;
     };
 }

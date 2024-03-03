@@ -9,18 +9,21 @@ namespace vanetza_wrapper
 namespace units
 {
     using vanetza::units::Duration;
-    
+
     class DurationWrapper {
     public:
         DurationWrapper(Duration src) :
             m_inner(src)
         {}
-        
-        double as_seconds() {
+
+        DurationWrapper(double seconds) :
+            m_inner(seconds * boost::units::si::second)
+        {}
+
+        double as_seconds() const {
             return m_inner / boost::units::si::second;
         }
-        
-    private:
+
         Duration m_inner;
     };
 }

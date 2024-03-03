@@ -1,20 +1,16 @@
-use mac_address::MacAddress;
-use vanetza_sys::vanetza::MacAddress as CxxMacAddress;
+use cxx::{private::UniquePtrTarget, UniquePtr};
 
-pub(crate) trait MacAddressExt {
-    fn to_cxx(&self) -> CxxMacAddress;
-    fn from_cxx(addr: CxxMacAddress) -> Self;
+pub(crate) trait ToCxxUniquePtr<T>
+where
+    T: UniquePtrTarget,
+{
+    fn to_cxx_unique_ptr(&self) -> UniquePtr<T>;
 }
 
-impl MacAddressExt for MacAddress {
-    fn to_cxx(&self) -> CxxMacAddress {
-        CxxMacAddress {
-            _base: 0,
-            octets: self.bytes(),
-        }
-    }
+pub(crate) trait ToCxxPod<T> {
+    fn to_cxx_pod(&self) -> T;
+}
 
-    fn from_cxx(addr: CxxMacAddress) -> Self {
-        Self::new(addr.octets)
-    }
+pub(crate) trait FromCxxRef<T> {
+    fn from_cxx_ref(src: &T) -> Self;
 }

@@ -16,11 +16,14 @@ namespace units
             m_inner(src)
         {}
 
-        double as_hertz() {
+        FrequencyWrapper(double hertz) :
+            m_inner(hertz * boost::units::si::hertz)
+        {}
+
+        double as_hertz() const {
             return m_inner / boost::units::si::hertz;
         }
 
-    private:
         Frequency m_inner;
     };
 }

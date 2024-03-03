@@ -1,4 +1,5 @@
 mod chunk_packet;
+mod mac_address;
 mod packet;
 mod packet_variant;
 

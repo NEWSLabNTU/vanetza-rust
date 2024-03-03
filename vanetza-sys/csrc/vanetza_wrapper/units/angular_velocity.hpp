@@ -16,11 +16,14 @@ namespace units
             m_inner(src)
         {}
 
-        double as_radians_per_second() {
+        AngularVelocityWrapper(double radians_per_second) :
+            m_inner(radians_per_second * boost::units::si::radians_per_second)
+        {}
+
+        double as_radians_per_second() const {
             return m_inner / boost::units::si::radians_per_second;
         }
 
-    private:
         AngularVelocity m_inner;
     };
 }

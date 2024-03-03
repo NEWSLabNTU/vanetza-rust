@@ -1,4 +1,4 @@
-use crate::{geonet::StationType, utils::MacAddressExt};
+use crate::{geonet::StationType, utils::ToCxxPod};
 use autocxx::prelude::*;
 use cxx::UniquePtr;
 use mac_address::MacAddress;
@@ -23,7 +23,7 @@ impl Address {
         let mut ptr = CxxAddress::new().within_unique_ptr();
         ptr.pin_mut().is_manually_configured1(*manually_configured);
         ptr.pin_mut().station_type1(station_type.clone());
-        ptr.pin_mut().mid1(&mid.to_cxx());
+        ptr.pin_mut().mid1(&mid.to_cxx_pod());
         todo!("set country_code");
 
         ptr

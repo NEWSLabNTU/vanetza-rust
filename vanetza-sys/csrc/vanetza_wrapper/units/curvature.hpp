@@ -17,11 +17,14 @@ namespace units
             m_inner(src)
         {}
 
-        double as_reciprocal_meters() {
+        CurvatureWrapper(double reciprocal_metre_value) :
+            m_inner(reciprocal_metre_value * reciprocal_metre)
+        {}
+
+        double as_reciprocal_meters() const {
             return m_inner / reciprocal_metre;
         }
 
-    private:
         Curvature m_inner;
     };
 }

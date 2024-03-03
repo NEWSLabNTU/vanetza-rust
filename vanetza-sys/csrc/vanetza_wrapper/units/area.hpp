@@ -16,11 +16,14 @@ namespace units
             m_inner(src)
         {}
 
-        double as_square_meters() {
+        AreaWrapper(double square_meters) :
+            m_inner(square_meters * boost::units::si::square_meter)
+        {}
+
+        double as_square_meters() const {
             return m_inner / boost::units::si::square_meter;
         }
 
-    private:
         Area m_inner;
     };
 }

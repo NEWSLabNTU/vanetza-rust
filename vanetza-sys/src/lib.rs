@@ -10,7 +10,6 @@ include_cpp! {
     #include "vanetza/net/chunk_packet.hpp"
     #include "vanetza/net/cohesive_packet.hpp"
     #include "vanetza/net/packet_variant.hpp"
-    #include "vanetza_wrapper.hpp"
     #include "vanetza/geonet/router.hpp"
     #include "vanetza/geonet/address.hpp"
     #include "vanetza/geonet/lifetime.hpp"
@@ -26,6 +25,9 @@ include_cpp! {
     // #include "vanetza/geonet/location_table.hpp"
     #include "vanetza/geonet/interface.hpp"
     #include "vanetza/geonet/data_indication.hpp"
+
+    // NOTICE: This include must be placed the end of the list.
+    #include "vanetza_wrapper.hpp"
 
     safety!(unsafe_ffi)
 
@@ -91,8 +93,8 @@ include_cpp! {
     generate!("vanetza::geonet::Circle")
     generate!("vanetza::geonet::Rectangle")
     generate!("vanetza::geonet::Ellipse")
-    // generate!("vanetza::geonet::CartesianPosition")
-    // generate!("vanetza::geonet::GeodeticPosition")
+    generate!("vanetza::geonet::CartesianPosition")
+    generate!("vanetza::geonet::GeodeticPosition")
 
     // vanetza/geonet/mib.hpp
     generate!("vanetza::geonet::ManagementInformationBase")
@@ -121,6 +123,23 @@ include_cpp! {
 
     // vanetza/geonet/data_indication.hpp
     generate!("vanetza::geonet::DataIndication")
+
+    // vanetza_wrapper.hpp
+    generate_ns!("vanetza_wrapper")
+
+    // Forbid types that break autocxx
+    block!("vanetza::units::Acceleration")
+    block!("vanetza::units::Angle")
+    block!("vanetza::units::GeoAngle")
+    block!("vanetza::units::TrueNorth")
+    block!("vanetza::units::AngularVelocity")
+    block!("vanetza::units::Area")
+    block!("vanetza::units::Curvature")
+    block!("vanetza::units::Frequency")
+    block!("vanetza::units::Length")
+    block!("vanetza::units::Duration")
+    block!("vanetza::units::Velocity")
+    block!("vanetza::units::NauticalVelocity")
 }
 
 pub use ffi::*;

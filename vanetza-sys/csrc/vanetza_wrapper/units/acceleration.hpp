@@ -15,11 +15,14 @@ namespace units
             m_inner(src)
         {}
 
-        double as_meters_per_second_squared() {
+        AccelerationWrapper(double meters_per_second_squared) :
+            m_inner(meters_per_second_squared * boost::units::si::meter_per_second_squared)
+        {}
+
+        double as_meters_per_second_squared() const {
             return m_inner / boost::units::si::meter_per_second_squared;
         }
 
-    private:
         Acceleration m_inner;
     };
 }

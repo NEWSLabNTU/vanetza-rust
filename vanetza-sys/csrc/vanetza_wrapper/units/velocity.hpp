@@ -16,11 +16,14 @@ namespace units
             m_inner(src)
         {}
 
-        double as_meters_per_second() {
+        VelocityWrapper(double meter_per_second) :
+            m_inner(meter_per_second * boost::units::si::meter_per_second)
+        {}
+
+        double as_meters_per_second() const {
             return m_inner / boost::units::si::meter_per_second;
         }
 
-    private:
         Velocity m_inner;
     };
 
@@ -30,11 +33,14 @@ namespace units
             m_inner(src)
         {}
 
-        double as_knots() {
+        NauticalVelocityWrapper(double knot) :
+            m_inner(knot * vanetza::units::metric::knot)
+        {}
+
+        double as_knots() const {
             return m_inner / vanetza::units::metric::knot;
         }
 
-    private:
         NauticalVelocity m_inner;
     };
 }

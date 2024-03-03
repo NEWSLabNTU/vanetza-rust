@@ -3,7 +3,7 @@ use super::{
     GacDataRequest, GbcDataRequest, GucDataRequest, LongPositionVectorRef, ShbDataRequest,
     TsbDataRequest,
 };
-use crate::{utils::MacAddressExt, DownPacket, PositionFix, Runtime, UpPacket};
+use crate::{utils::ToCxxPod, DownPacket, PositionFix, Runtime, UpPacket};
 use autocxx::prelude::*;
 use cxx::UniquePtr;
 use mac_address::MacAddress;
@@ -96,7 +96,7 @@ impl Router {
         self.ptr
             .as_ref()
             .unwrap()
-            .outside_sectorial_contention_area(&sender.to_cxx(), &forwarder.to_cxx())
+            .outside_sectorial_contention_area(&sender.to_cxx_pod(), &forwarder.to_cxx_pod())
     }
 
     pub fn set_random_seed(&mut self, seed: u32) {

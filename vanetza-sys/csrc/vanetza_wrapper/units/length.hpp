@@ -16,11 +16,14 @@ namespace units
             m_inner(src)
         {}
 
-        double as_meters() {
+        LengthWrapper(double meters) :
+            m_inner(meters * boost::units::si::meter)
+        {}
+
+        double as_meters() const {
             return m_inner / boost::units::si::meter;
         }
 
-    private:
         Length m_inner;
     };
 }
