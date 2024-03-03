@@ -1,4 +1,4 @@
-use measurements::{Angle, Length};
+use crate::units::{Angle, GeoAngle, Length};
 use vanetza_sys::vanetza::geonet::Area as CxxArea;
 
 pub struct Area {
@@ -12,7 +12,7 @@ impl Area {
         todo!();
     }
 
-    pub fn area_size(&self) -> measurements::Area {
+    pub fn area_size(&self) -> Area {
         todo!();
     }
 
@@ -26,8 +26,8 @@ impl Area {
 }
 
 pub struct GeodeticPosition {
-    pub latitude: Angle,
-    pub longitude: Angle,
+    pub latitude: GeoAngle,
+    pub longitude: GeoAngle,
 }
 
 impl GeodeticPosition {
