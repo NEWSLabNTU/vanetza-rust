@@ -3,12 +3,17 @@ use super::{
     GacDataRequest, GbcDataRequest, GucDataRequest, LongPositionVectorRef, ShbDataRequest,
     TsbDataRequest,
 };
-use crate::{utils::ToCxxPod, DownPacket, PositionFix, Runtime, UpPacket};
+use crate::{
+    utils::{CxxRefMut, IntoCxxUniquePtr, ToCxxPod, ToCxxRefMut},
+    DownPacket, PositionFix, Runtime, UpPacket,
+};
 use autocxx::prelude::*;
 use cxx::UniquePtr;
 use mac_address::MacAddress;
 use std::os;
-use vanetza_sys::vanetza::geonet::Router as CxxRouter;
+use vanetza_sys::{
+    vanetza::geonet::Router as CxxRouter, vanetza_wrapper::geonet::RouterRef as CxxRouterRef,
+};
 
 pub struct Router {
     ptr: UniquePtr<CxxRouter>,
@@ -61,8 +66,12 @@ impl Router {
     }
 
     pub fn indicate(&mut self, packet: UpPacket, sender: MacAddress, destination: MacAddress) {
-        // self.ptr.pin_mut().indicate(packet, &sender.to_cxx(), &destination.to_cxx())
-        todo!();
+        let packet = packet.into_cxx_unique_ptr();
+        self.to_cxx_ref_mut().pin_mut().indicate(
+            packet,
+            &sender.to_cxx_pod(),
+            &destination.to_cxx_pod(),
+        );
     }
 
     pub fn update_position(&mut self, fix: &PositionFix) {
@@ -103,5 +112,12 @@ impl Router {
         self.ptr
             .pin_mut()
             .set_random_seed(autocxx::c_ulong(seed as os::raw::c_ulong));
+    }
+}
+
+impl ToCxxRefMut<CxxRouterRef> for Router {
+    fn to_cxx_ref_mut(&mut self) -> CxxRefMut<'_, CxxRouterRef> {
+        let ref_ = CxxRouterRef::new(self.ptr.pin_mut()).within_unique_ptr();
+        unsafe { CxxRefMut::new(ref_) }
     }
 }

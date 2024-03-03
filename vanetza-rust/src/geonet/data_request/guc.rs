@@ -5,7 +5,7 @@ use crate::{
 };
 use cxx::UniquePtr;
 use vanetza_sys::vanetza::geonet::{
-    DataRequest as CxxDataRequest, DataRequestWithAddress as CxxDataRequestWithAddress,
+    // DataRequest as CxxDataRequest, DataRequestWithAddress as CxxDataRequestWithAddress,
     GucDataRequest as CxxGucDataRequest,
 };
 
@@ -14,15 +14,15 @@ pub struct GucDataRequest {
 }
 
 impl DataRequest for GucDataRequest {
-    fn as_cxx_ref(&self) -> &CxxDataRequest {
-        todo!()
-    }
+    // fn as_cxx_ref(&self) -> &CxxDataRequest {
+    //     todo!()
+    // }
 }
 
 impl DataRequestWithAddress for GucDataRequest {
-    fn as_cxx_ref(&self) -> &CxxDataRequestWithAddress {
-        todo!()
-    }
+    // fn as_cxx_ref(&self) -> &CxxDataRequestWithAddress {
+    //     todo!()
+    // }
 }
 
 impl GucDataRequest {

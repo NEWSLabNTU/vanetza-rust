@@ -2,7 +2,8 @@ use super::DataRequest;
 use crate::{geonet::MIB, ItsAid};
 use cxx::UniquePtr;
 use vanetza_sys::vanetza::geonet::{
-    DataRequest as CxxDataRequest, ShbDataRequest as CxxShbDataRequest,
+    // DataRequest as CxxDataRequest,
+    ShbDataRequest as CxxShbDataRequest,
 };
 
 pub struct ShbDataRequest {
@@ -10,9 +11,9 @@ pub struct ShbDataRequest {
 }
 
 impl DataRequest for ShbDataRequest {
-    fn as_cxx_ref(&self) -> &CxxDataRequest {
-        todo!()
-    }
+    // fn as_cxx_ref(&self) -> &CxxDataRequest {
+    //     todo!()
+    // }
 }
 
 impl ShbDataRequest {

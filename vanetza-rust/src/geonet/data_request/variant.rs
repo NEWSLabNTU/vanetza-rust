@@ -1,7 +1,7 @@
 use super::{
     DataRequest, GacDataRequest, GbcDataRequest, GucDataRequest, ShbDataRequest, TsbDataRequest,
 };
-use vanetza_sys::vanetza::geonet::DataRequest as CxxDataRequest;
+// use vanetza_sys::vanetza::geonet::DataRequest as CxxDataRequest;
 
 pub enum DataRequestVariant {
     Guc(GucDataRequest),
@@ -42,13 +42,13 @@ impl From<GucDataRequest> for DataRequestVariant {
 }
 
 impl DataRequest for DataRequestVariant {
-    fn as_cxx_ref(&self) -> &CxxDataRequest {
-        match self {
-            DataRequestVariant::Guc(req) => <_ as DataRequest>::as_cxx_ref(req),
-            DataRequestVariant::Gbc(req) => <_ as DataRequest>::as_cxx_ref(req),
-            DataRequestVariant::Gac(req) => <_ as DataRequest>::as_cxx_ref(req),
-            DataRequestVariant::Shb(req) => <_ as DataRequest>::as_cxx_ref(req),
-            DataRequestVariant::Tsb(req) => <_ as DataRequest>::as_cxx_ref(req),
-        }
-    }
+    // fn as_cxx_ref(&self) -> &CxxDataRequest {
+    //     match self {
+    //         DataRequestVariant::Guc(req) => <_ as DataRequest>::as_cxx_ref(req),
+    //         DataRequestVariant::Gbc(req) => <_ as DataRequest>::as_cxx_ref(req),
+    //         DataRequestVariant::Gac(req) => <_ as DataRequest>::as_cxx_ref(req),
+    //         DataRequestVariant::Shb(req) => <_ as DataRequest>::as_cxx_ref(req),
+    //         DataRequestVariant::Tsb(req) => <_ as DataRequest>::as_cxx_ref(req),
+    //     }
+    // }
 }

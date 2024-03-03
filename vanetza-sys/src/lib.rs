@@ -9,6 +9,7 @@ include_cpp! {
     #include "vanetza/net/mac_address.hpp"
     #include "vanetza/net/chunk_packet.hpp"
     #include "vanetza/net/cohesive_packet.hpp"
+    #include "vanetza/net/cohesive_packet.hpp"
     #include "vanetza/net/packet_variant.hpp"
     #include "vanetza/geonet/router.hpp"
     #include "vanetza/geonet/address.hpp"
@@ -52,6 +53,9 @@ include_cpp! {
 
     // vanetza/net/chunk_packet.hpp
     generate!("vanetza::ChunkPacket")
+
+    // vanetza/net/cohesive_packet.hpp
+    generate!("vanetza::CohesivePacket")
 
     // vanetza/net/cohesive_packet.hpp
     generate!("vanetza::CohesivePacket")
