@@ -1,4 +1,4 @@
-# Rust Binding Generation
+# Binding Generation Process
 
 Let's check the dependency list in `vanetza-sys/Cargo.toml`.
 
@@ -154,11 +154,11 @@ works.
 
 ```rust
 fn generate_rust_bindings(vanetza_dir: &Path) {
-    println!("cargo:rerun-if-changed=src/ffi.rs");
+    println!("cargo:rerun-if-changed=src/ffi_autocxx.rs");
 
     let include_dirs = { /* omitted */ };
 
-    let mut cc_build = autocxx_build::Builder::new("src/ffi.rs", include_dirs)
+    let mut cc_build = autocxx_build::Builder::new("src/ffi_autocxx.rs", include_dirs)
         .build()
         .expect("Unable to generate bindings");
 
@@ -171,8 +171,8 @@ fn generate_rust_bindings(vanetza_dir: &Path) {
 The line `autocxx_build::Builder::new()` is the step that performs the
 code generation. Before this step, it lists the directories to search
 for headers and saves them in `include_dirs`. It reads the
-`src/ffi.rs` file and finds the `include_cpp!` macro. The macro lists
-the C++ classes and functions for code generation.
+`src/ffi_autocxx.rs` file and finds the `include_cpp!` macro. The
+macro lists the C++ classes and functions for code generation.
 
 ```rust
 include_cpp! {

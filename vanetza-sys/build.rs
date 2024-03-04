@@ -53,7 +53,7 @@ fn build_vanetza() -> PathBuf {
 }
 
 fn generate_rust_bindings(vanetza_dir: &Path) {
-    println!("cargo:rerun-if-changed=src/ffi.rs");
+    println!("cargo:rerun-if-changed=src/ffi_autocxx.rs");
 
     let include_dirs = {
         let vanetza_include_dir = vanetza_dir.join("include");
@@ -73,7 +73,7 @@ fn generate_rust_bindings(vanetza_dir: &Path) {
         ]
     };
 
-    let mut cc_build = autocxx_build::Builder::new("src/ffi.rs", include_dirs)
+    let mut cc_build = autocxx_build::Builder::new("src/ffi_autocxx.rs", include_dirs)
         .build()
         .expect("Unable to generate bindings");
 
