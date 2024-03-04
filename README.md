@@ -7,6 +7,7 @@ ETSI C-ITS protocol suite. It comprises of these directories:
 - `vanetza`: The C++ Vanetza repository.
 - `vanetza-sys`: The Rust FFI interface for Vanetza library.
 - `vanetza-rust`: The high-level Rust bindings for Vanetza library.
+- `dev-guide`: The developer guide.
 
 
 ## Usage
@@ -24,6 +25,9 @@ To open the API doc of this library, download this repository and run.
 cargo doc --open
 ```
 
+## For Developers
+
+Please read the book in [dev-guide](dev-guide).
 
 ## License
 
