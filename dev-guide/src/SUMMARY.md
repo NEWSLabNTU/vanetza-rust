@@ -1,4 +1,4 @@
 # Summary
 
-- [Introduction](./introduction.md)
+- [Introduction](./README.md)
 - [Start a Workspace](./workspace.md)
