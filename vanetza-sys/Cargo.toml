@@ -15,3 +15,6 @@ bindgen = "0.69.4"
 cc = "1.0.88"
 cmake = "0.1.50"
 pkg-config = "0.3.30"
+
+[features]
+docs-only = []

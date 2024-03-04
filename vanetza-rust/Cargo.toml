@@ -12,3 +12,6 @@ num-derive = "0.4.2"
 num-traits = "0.2.18"
 uom = "0.35.0"
 vanetza-sys = { version = "0.1.0", path = "../vanetza-sys" }
+
+[features]
+docs-only = ["vanetza-sys/docs-only"]

@@ -1,4 +1,7 @@
-use std::path::{Path, PathBuf};
+use std::{
+    env, fs,
+    path::{Path, PathBuf},
+};
 
 const VANETZA_LIBRARIES: &[&str] = &[
     "vanetza_access",
@@ -18,6 +21,9 @@ const VANETZA_LIBRARIES: &[&str] = &[
 ];
 
 fn main() {
+    #[cfg(feature = "docs-only")]
+    return;
+
     // Build the Vanetza C++ library and get the directory where
     // Vanetza header and library files are installed.
     let vanetza_dir = build_vanetza();
@@ -25,7 +31,10 @@ fn main() {
     // Generate Rust FFI code by translating C headers in `csrc`.
     generate_rust_bindings(&vanetza_dir);
 
+    // Link to GeographicLib, a required dependency of Vanetza.
     link_geographic_lib();
+
+    save_bindings();
 }
 
 fn build_vanetza() -> PathBuf {
@@ -44,7 +53,7 @@ fn build_vanetza() -> PathBuf {
 }
 
 fn generate_rust_bindings(vanetza_dir: &Path) {
-    println!("cargo:rerun-if-changed=src/lib.rs");
+    println!("cargo:rerun-if-changed=src/ffi.rs");
 
     let include_dirs = {
         let vanetza_include_dir = vanetza_dir.join("include");
@@ -64,7 +73,7 @@ fn generate_rust_bindings(vanetza_dir: &Path) {
         ]
     };
 
-    let mut cc_build = autocxx_build::Builder::new("src/lib.rs", include_dirs)
+    let mut cc_build = autocxx_build::Builder::new("src/ffi.rs", include_dirs)
         .build()
         .expect("Unable to generate bindings");
 
@@ -74,7 +83,6 @@ fn generate_rust_bindings(vanetza_dir: &Path) {
 }
 
 fn link_geographic_lib() {
-    // Link to GeographicLib, a required dependency of Vanetza.
     let lib = pkg_config::probe_library("geographiclib")
         .expect("Unable to find GeographicLib. Is it installed on your system?");
 
@@ -85,4 +93,17 @@ fn link_geographic_lib() {
     for lib in lib.libs {
         println!("cargo:rustc-link-lib=static={lib}");
     }
+}
+
+fn save_bindings() {
+    let manifest_dir = Path::new(env!("CARGO_MANIFEST_DIR"));
+    let out_dir = PathBuf::from(env::var_os("OUT_DIR").unwrap());
+    let src_file = out_dir.join("autocxx-build-dir/rs/autocxx-ffi-default-gen.rs");
+    let tgt_dir = manifest_dir.join("generated");
+    let tgt_file = tgt_dir.join("bindings.rs");
+
+    fs::create_dir_all(&tgt_dir)
+        .unwrap_or_else(|_| panic!("Unable to create directory {}", tgt_dir.display()));
+    fs::copy(src_file, &tgt_file)
+        .unwrap_or_else(|_| panic!("Unable to create file {}", tgt_file.display()));
 }
