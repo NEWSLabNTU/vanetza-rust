@@ -11,8 +11,6 @@ cxx = "1.0.118"
 
 [build-dependencies]
 autocxx-build = "0.26.0"
-bindgen = "0.69.4"
-cc = "1.0.88"
 cmake = "0.1.50"
 pkg-config = "0.3.30"
 
