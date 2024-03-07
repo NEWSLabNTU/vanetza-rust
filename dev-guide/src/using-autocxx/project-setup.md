@@ -18,6 +18,8 @@ vanetza-sys/
    file and generate FFI code accordingly.
 4. The entry of the Rust library.
 
+## The `include_cpp!` Macro
+
 The `include_cpp!` macro in `ffi_autocxx.rs` lists allowed and blocked
 C++ classes and functions (items). It is processed by `build.rs`. The
 macro block is replaced with generated Rust bindings.
@@ -52,6 +54,8 @@ The `lib.rs` re-exports all generated items to the root module.
 mod ffi_autocxx;
 pub use ffi_autocxx::*;
 ```
+
+## Review Generation Results
 
 It's recommended to view the Rust document to see the outcome of code
 generation.
