@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["PacketVariant"],"mod":["aid","geonet","units"],"struct":["ChunkPacket","CohesivePacket","PositionFix"],"trait":["Runtime"],"type":["DownPacket","ItsAid","UpPacket"]};
