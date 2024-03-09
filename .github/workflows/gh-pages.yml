@@ -20,23 +20,31 @@ jobs:
         with:
           mdbook-version: '0.4.10'
           # mdbook-version: 'latest'
-      - name: Build API Docs
-        run: cargo doc --features docs-only --no-deps
+      - name: Build API Docs for vanetza-sys
+        run: |
+          cargo doc --package vanetza-sys --features docs-only --no-deps
+          mv target/doc vanetza-sys-docs
+          echo '<!DOCTYPE html><html><head><meta http-equiv="refresh" content="0; url='"'"'vanetza_sys/index.html'"'"'" /></head><body></body></html>' > vanetza-sys-docs/index.html
+      - name: Build API Docs for vanetza
+        run: |
+          cargo doc --package vanetza --features docs-only --no-deps
+          mv target/doc vanetza-docs
+          echo '<!DOCTYPE html><html><head><meta http-equiv="refresh" content="0; url='"'"'vanetza/index.html'"'"'" /></head><body></body></html>' > vanetza-docs/index.html
       - name: Build Dev Guide
         run: cd dev-guide && mdbook build
-      - name: Publish vanetza-sys API doc
+      - name: Publish API doc for vanetza-sys
         uses: peaceiris/actions-gh-pages@v3
         if: ${{ github.ref == 'refs/heads/main' }}
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./target/doc/vanetza
+          publish_dir: ./vanetza-sys-docs
           publish_branch: vanetza-sys-api-pages
-      - name: Publish vanetza API doc
+      - name: Publish API doc for vanetza
         uses: peaceiris/actions-gh-pages@v3
         if: ${{ github.ref == 'refs/heads/main' }}
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./target/doc/vanetza
+          publish_dir: ./vanetza-docs
           publish_branch: vanetza-api-pages
       - name: Deploy Dev Guide
         uses: peaceiris/actions-gh-pages@v3
