@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":["AccelerationWrapper","AngleWrapper","AngularVelocityWrapper","AreaWrapper","CurvatureWrapper","DurationWrapper","FrequencyWrapper","GeoAngleWrapper","LengthWrapper","NauticalVelocityWrapper","TrueNorthWrapper","VelocityWrapper"]};

@@ -1,1 +1,0 @@
-window.SIDEBAR_ITEMS = {"struct":["GeoAngle","TrueNorth"],"type":["Acceleration","Angle","AngularVelocity","Area","Curvature","Duration","Frequency","Length","Velocity"]};

@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["make_string"],"mod":["vanetza","vanetza_wrapper"],"struct":["std_initializer_list_uint8_t_AutocxxConcrete"],"trait":["ToCppString"],"type":["uint_fast32_t"]};

@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["area_size","canonicalize","distance","inside_or_at_border"],"struct":["CartesianPositionWrapper","CircleWrapper","EllipseWrapper","GeodeticPositionWrapper","GeonetAreaWrapper","RectangleWrapper","RouterRef"]};
