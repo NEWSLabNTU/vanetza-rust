@@ -1,0 +1,370 @@
+<!DOCTYPE HTML>
+<html lang="en" class="sidebar-visible no-js light">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>Binding Generation Process - Vanetza Rust Bindings Developer Guide</title>
+                
+
+        <!-- Custom HTML head -->
+        
+
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff" />
+
+                <link rel="icon" href="../favicon.svg">
+                        <link rel="shortcut icon" href="../favicon.png">
+                <link rel="stylesheet" href="../css/variables.css">
+        <link rel="stylesheet" href="../css/general.css">
+        <link rel="stylesheet" href="../css/chrome.css">
+                <link rel="stylesheet" href="../css/print.css" media="print">
+        
+        <!-- Fonts -->
+        <link rel="stylesheet" href="../FontAwesome/css/font-awesome.css">
+                <link rel="stylesheet" href="../fonts/fonts.css">
+        
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="../highlight.css">
+        <link rel="stylesheet" href="../tomorrow-night.css">
+        <link rel="stylesheet" href="../ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+        
+            </head>
+    <body>
+        <!-- Provide site root to javascript -->
+        <script type="text/javascript">
+            var path_to_root = "../";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
+        </script>
+
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script type="text/javascript">
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script type="text/javascript">
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            var html = document.querySelector('html');
+            html.classList.remove('no-js')
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add('js');
+        </script>
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script type="text/javascript">
+            var html = document.querySelector('html');
+            var sidebar = 'hidden';
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            }
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <div class="sidebar-scrollbox">
+                <ol class="chapter"><li class="chapter-item expanded "><a href="../index.html"><strong aria-hidden="true">1.</strong> Introduction</a></li><li class="chapter-item expanded "><a href="../workspace.html"><strong aria-hidden="true">2.</strong> Start a Workspace</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../workspace/rust-bindgen.html" class="active"><strong aria-hidden="true">2.1.</strong> Binding Generation Process</a></li><li class="chapter-item expanded "><a href="../workspace/appendix-cpp-linking.html"><strong aria-hidden="true">2.2.</strong> Appendix: Library Linking in C/C++</a></li></ol></li><li class="chapter-item expanded "><a href="../using-autocxx.html"><strong aria-hidden="true">3.</strong> Using autocxx</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../using-autocxx/cpp-to-rust-mapping.html"><strong aria-hidden="true">3.1.</strong> C++ to Rust Mapping</a></li><li class="chapter-item expanded "><a href="../using-autocxx/project-setup.html"><strong aria-hidden="true">3.2.</strong> Project Setup</a></li><li class="chapter-item expanded "><a href="../using-autocxx/allowlist-and-blocklist.html"><strong aria-hidden="true">3.3.</strong> Allowlist and Blocklist</a></li><li class="chapter-item expanded "><a href="../using-autocxx/workaround.html"><strong aria-hidden="true">3.4.</strong> Workaround Code Generation Failures</a></li></ol></li><li class="chapter-item expanded "><a href="../rust-wrapper-patterns.html"><strong aria-hidden="true">4.</strong> Rust Wrapper Patterns</a></li></ol>            </div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                
+                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky bordered">
+                    <div class="left-buttons">
+                        <button id="sidebar-toggle" class="icon-button" type="button" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </button>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light (default)</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                                                <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                                            </div>
+
+                    <h1 class="menu-title">Vanetza Rust Bindings Developer Guide</h1>
+
+                    <div class="right-buttons">
+                                                <a href="../print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+                                                                        
+                    </div>
+                </div>
+
+                                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+                
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script type="text/javascript">
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <h1 id="binding-generation-process"><a class="header" href="#binding-generation-process">Binding Generation Process</a></h1>
+<p>Let's check the dependency list in <code>vanetza-sys/Cargo.toml</code>.</p>
+<pre><code class="language-bash">[dependencies]
+autocxx = &quot;0.26.0&quot;
+cxx = &quot;1.0.118&quot;
+
+[build-dependencies]
+autocxx-build = &quot;0.26.0&quot;
+cmake = &quot;0.1.50&quot;
+</code></pre>
+<p>The <code>[build-dependencies]</code> section lists the dependencies for the
+<code>build.rs</code> script. The <code>[dependencies]</code> section lists dependencies for
+the output library. They are separated for purpose.</p>
+<p>The <a href="https://crates.io/crates/cmake">cmake</a> crate is used for library
+compilation, provided that Vanetza is a CMake project. The
+<a href="https://crates.io/crates/autocxx-build">autocxx-build</a> is the binding
+generator for C++. We'll employ this crate to scan through listed C++
+classes, and it will produce analogous Rust data types. The generated
+Rust code will use data types from
+<a href="https://crates.io/crates/autocxx">autocxx</a> and
+<a href="https://crates.io/crates/cxx">cxx</a>. That's why we include them.</p>
+<h2 id="the-build-script-buildrs-explained"><a class="header" href="#the-build-script-buildrs-explained">The Build Script <code>build.rs</code> Explained</a></h2>
+<p>The script <code>vanetza-sys/build.rs</code> is executed before the compilation
+of the <code>vanetza-sys</code> library. It is convenient for cases that we need
+to compile non-Rust code. Our <code>build.rs</code> compiles the Vanetza source
+code and it uses special instructions ask the compiler to link Vanetza
+libraries. The details are explained in <a href="https://doc.rust-lang.org/cargo/reference/build-scripts.html">Rust
+book</a>
+and we'll focus on our implementation.</p>
+<p>Let's check the <code>vanetza-sys/build.rs</code>. The main function runs two
+major steps. It first compiles the Vanetza source code within the
+<code>vanetza</code> submodule and returns the directory storing the compiled
+Vanetza. Then, it scans header files within the directory and
+generates Rust code.</p>
+<pre><pre class="playground"><code class="language-rust">fn main() {
+    let vanetza_dir = build_vanetza();
+    generate_rust_bindings(&amp;vanetza_dir);
+}
+</code></pre></pre>
+<p>We'll move to each function and explain them in details.</p>
+<h2 id="compile-vanetza"><a class="header" href="#compile-vanetza">Compile Vanetza</a></h2>
+<p>Let's move to <code>build_vanetza()</code> function. </p>
+<pre><pre class="playground"><code class="language-rust">
+<span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>fn build_vanetza() -&gt; PathBuf {
+    // Compile the Vanetza source code using CMake.
+    let dst_dir = cmake::Config::new(&quot;../vanetza&quot;).build_arg(&quot;-j&quot;).build();
+
+    // Link Vanetza libraries
+    let lib_dir = dst_dir.join(&quot;lib&quot;);
+
+    println!(&quot;cargo:rustc-link-search=native={}&quot;, lib_dir.display());
+    for lib in VANETZA_LIBRARIES {
+        println!(&quot;cargo:rustc-link-lib=static={lib}&quot;);
+    }
+
+    dst_dir
+}
+<span class="boring">}
+</span></code></pre></pre>
+<p>The line <code>cmake::Config()...</code> calls CMake to build the Vanetza
+project. It effectively the same with the following commands.</p>
+<pre><code class="language-bash">cmake ../vanetza
+make -j
+make install
+</code></pre>
+<p>The compiled Vanetza is installed to a directory and the path is
+returned to <code>dst_dir</code>. The subdirectories under <code>dst_dir</code> follows the
+UNIX convention. The <code>include</code> directory stores the header files, and
+<code>lib</code> directory stores the compiled library files.</p>
+<pre><code>dst_dir/
+├── include/
+└── lib/
+    ├── libvanetza_geonet.a
+    ├── libvanetza_btp.a
+    └── ...
+</code></pre>
+<p>The next step calls <code>println!()</code> to ask the Rust compiler to search for
+Vanetza library files in the <code>$dst_dir/lib</code> directory. It is analogous
+to <code>gcc -L $dst_dir/lib</code>.</p>
+<pre><pre class="playground"><code class="language-rust">
+<span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>// lib_dir := $dst_dir/lib
+println!(&quot;cargo:rustc-link-search=native={}&quot;, lib_dir.display());
+<span class="boring">}
+</span></code></pre></pre>
+<p>Then, link the libraries we desired. We have a list of libraries
+stored in <code>VANETZA_LIBRARIES</code> global variable. It is analogous to <code>gcc -l $lib</code>.</p>
+<pre><pre class="playground"><code class="language-rust">
+<span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>const VANETZA_LIBRARIES: &amp;[&amp;str] = &amp;[
+    &quot;vanetza_access&quot;,
+    &quot;vanetza_asn1&quot;,
+    // omit...
+];
+
+for lib in VANETZA_LIBRARIES {
+    println!(&quot;cargo:rustc-link-lib=static={lib}&quot;);
+}
+<span class="boring">}
+</span></code></pre></pre>
+<p>The Rust compiler records the <code>println!()</code> output from build script
+and performs actions. There are more special instructions and you can
+see the <a href="https://doc.rust-lang.org/cargo/reference/build-scripts.html#outputs-of-the-build-script">Rust
+book</a>
+if you're interested.</p>
+<h2 id="rust-ffi-code-generation"><a class="header" href="#rust-ffi-code-generation">Rust FFI Code Generation</a></h2>
+<p>To allow Rust to access to compiled libraries, one has to write the
+foreign function interface code in Rust. The code works like C/C++
+headers. It only declares function signatures and data structures but
+does not have function bodies.</p>
+<p>For example, to access to <code>foo()</code> and <code>bar()</code> functions in
+<code>libvanetza_abc.a</code>. The Rust FFI code writes</p>
+<pre><pre class="playground"><code class="language-rust">
+<span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>#[link(name = &quot;vanetza_abc&quot;)]
+extern {
+   fn foo(a: u8) -&gt; i32;
+   fn bar();
+}
+<span class="boring">}
+</span></code></pre></pre>
+<p>In most cases, we don't write the FFI code manually. The C/C++ headers
+are already in Vanetza source repository and we use automatic code
+generator to translate the C++ headers into Rust FFI code.</p>
+<p>Let's check the <code>generate_rust_bindings()</code> function to see how it
+works.</p>
+<pre><pre class="playground"><code class="language-rust">
+<span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>fn generate_rust_bindings(vanetza_dir: &amp;Path) {
+    println!(&quot;cargo:rerun-if-changed=src/ffi_autocxx.rs&quot;);
+
+    let include_dirs = { /* omitted */ };
+
+    let mut cc_build = autocxx_build::Builder::new(&quot;src/ffi_autocxx.rs&quot;, include_dirs)
+        .build()
+        .expect(&quot;Unable to generate bindings&quot;);
+
+    cc_build
+        .flag_if_supported(&quot;-std=c++14&quot;)
+        .compile(&quot;vanetza_rust&quot;);
+}
+<span class="boring">}
+</span></code></pre></pre>
+<p>The line <code>autocxx_build::Builder::new()</code> is the step that performs the
+code generation. Before this step, it lists the directories to search
+for headers and saves them in <code>include_dirs</code>. It reads the
+<code>src/ffi_autocxx.rs</code> file and finds the <code>include_cpp!</code> macro. The
+macro lists the C++ classes and functions for code generation.</p>
+<pre><pre class="playground"><code class="language-rust">
+<span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>include_cpp! {
+<span class="boring">    include &quot;vanetza/common/its_aid.hpp&quot;
+</span><span class="boring">    include &quot;vanetza/common/position_fix.hpp&quot;
+</span>    ...
+    
+    safety!(unsafe_ffi)
+    
+    generate!(&quot;vanetza::geonet::Router&quot;)
+    generate!(&quot;vanetza::geonet::Area&quot;)
+    ...
+}
+<span class="boring">}
+</span></code></pre></pre>
+<p>The autocxx code generator works for most simple C++ classes and
+functions. However, it could fail on some complex types. We'll play
+some tricks to work around this and we'll introduce them in the next
+chapter.</p>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                                                    <a rel="prev" href="../workspace.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+                        
+                                                    <a rel="next" href="../workspace/appendix-cpp-linking.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+                        
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                                    <a rel="prev" href="../workspace.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+                
+                                    <a rel="next" href="../workspace/appendix-cpp-linking.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+                            </nav>
+
+        </div>
+
+        
+        
+        
+                <script type="text/javascript">
+            window.playground_copyable = true;
+        </script>
+        
+        
+                <script src="../elasticlunr.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../mark.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../searcher.js" type="text/javascript" charset="utf-8"></script>
+        
+        <script src="../clipboard.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../highlight.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../book.js" type="text/javascript" charset="utf-8"></script>
+
+        <!-- Custom JS scripts -->
+        
+        
+    </body>
+</html>
