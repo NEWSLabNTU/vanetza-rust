@@ -27,6 +27,15 @@ include_cpp! {
     #include "vanetza/geonet/interface.hpp"
     #include "vanetza/geonet/data_indication.hpp"
 
+    #include "vanetza/btp/data_indication.hpp"
+    #include "vanetza/btp/data_interface.hpp"
+    #include "vanetza/btp/data_request.hpp"
+    #include "vanetza/btp/header_conversion.hpp"
+    #include "vanetza/common/byte_buffer_convertible.hpp"
+    #include "vanetza/btp/header.hpp"
+    #include "vanetza/btp/port_dispatcher.hpp"
+    #include "vanetza/btp/ports.hpp"
+
     // NOTICE: This include must be placed the end of the list.
     #include "vanetza_wrapper.hpp"
 
@@ -133,6 +142,34 @@ include_cpp! {
 
     // vanetza/geonet/data_indication.hpp
     generate!("vanetza::geonet::DataIndication")
+
+    // vanetza/btp/data_indication.hpp
+    //generate!("vanetza::btp::DataIndication") using wrapper
+
+    // vanetza/btp/data_interface.hpp
+    //generate!("vanetza::btp::IndicationInterface") using wrapper
+
+    //generate!("vanetza::btp::RequestInterface") using wrapper
+
+    // // vanetza/btp/data_request.hpp
+    generate!("vanetza::btp::DataRequestGeoNetParams")
+    generate!("vanetza::btp::DataRequestA")
+    generate!("vanetza::btp::DataRequestB")
+
+    // // vanetza/btp/header_conversion.hpp using wrapper
+    
+    // // vanetza/btp/header.hpp
+    generate!("vanetza::btp::HeaderA")
+    generate!("vanetza::btp::HeaderB")
+    generate!("vanetza::btp::serialize")
+    generate!("vanetza::btp::deserialize")
+
+    // // vanetza/btp/port_dispatcher.hpp using wrapper
+    //generate!("vanetza::btp::PortDispatcher") 
+    
+    // vanetza/btp/ports.hpp
+    //generate_ns!("vanetza::btp::ports") 
+
 
     // vanetza_wrapper.hpp
     generate_ns!("vanetza_wrapper")

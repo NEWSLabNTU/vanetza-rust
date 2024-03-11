@@ -14,3 +14,6 @@
 
 #include "vanetza_wrapper/geonet/areas.hpp"
 #include "vanetza_wrapper/geonet/router.hpp"
+#include "vanetza_wrapper/btp/data_indication.hpp"
+#include "vanetza_wrapper/btp/data_interface.hpp"
+#include "vanetza_wrapper/btp/header_conversion.hpp"
