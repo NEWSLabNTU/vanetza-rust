@@ -1,1 +1,1 @@
-window.SIDEBAR_ITEMS = {"mod":["geonet","units"],"struct":["PacketVariantWrapper"]};
+window.SIDEBAR_ITEMS = {"mod":["btp","convertible","geonet","units"],"struct":["PacketVariantWrapper"]};

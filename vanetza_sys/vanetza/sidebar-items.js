@@ -1,1 +1,1 @@
-window.SIDEBAR_ITEMS = {"enum":["OsiLayer"],"mod":["aid","dcc","geonet","security"],"struct":["ByteBufferConvertible","ChunkPacket","CohesivePacket","MacAddress","PacketVariant","PositionFix","Runtime"],"type":["ByteBuffer","DownPacket","ItsAid"]};
+window.SIDEBAR_ITEMS = {"enum":["OsiLayer"],"mod":["aid","btp","dcc","geonet","security"],"struct":["ByteBufferConvertible","ChunkPacket","CohesivePacket","InputArchive","MacAddress","OutputArchive","PacketVariant","PositionFix","Runtime"],"type":["ByteBuffer","DownPacket","ItsAid"]};
