@@ -159,19 +159,18 @@ include_cpp! {
     generate!("vanetza::btp::DataRequestB")
 
     // // vanetza/btp/header_conversion.hpp using wrapper
-    
+
     // // vanetza/btp/header.hpp
     generate!("vanetza::btp::HeaderA")
     generate!("vanetza::btp::HeaderB")
     generate!("vanetza::btp::serialize")
     generate!("vanetza::btp::deserialize")
-    
+
     // // vanetza/btp/port_dispatcher.hpp using wrapper
-    //generate!("vanetza::btp::PortDispatcher") 
-    
+    //generate!("vanetza::btp::PortDispatcher")
+
     // vanetza/btp/ports.hpp
-    //generate_ns!("vanetza::btp::ports") 
-    //generate!("vanetza::main")
+    //generate_ns!("vanetza::btp::ports")
 
     generate!("test")
     // vanetza_wrapper.hpp

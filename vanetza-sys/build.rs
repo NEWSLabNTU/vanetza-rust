@@ -43,7 +43,7 @@ fn main() {
 fn build_vanetza() -> PathBuf {
     // Compile the Vanetza source code using CMake.
     let dst_dir = cmake::Config::new("../vanetza").build_arg("-j").build();
-    
+
     // Link Vanetza libraries
     let lib_dir = dst_dir.join("lib");
 
@@ -112,7 +112,6 @@ fn link_crypto_lib() {
 fn link_boost_lib() {
     // let lib = pkg_config::probe_library("libboost_program_options")
     //     .expect("Unable to find boost. Is it installed on your system?");
-
 
     // for link_path in lib.link_paths {
     //     println!("cargo:rustc-link-search=native={}", link_path.display());
