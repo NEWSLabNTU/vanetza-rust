@@ -19,7 +19,7 @@ namespace geonet
         void indicate(std::unique_ptr<PacketVariantWrapper> packet, const MacAddress& sender, const MacAddress& destination) {
             m_inner.indicate(std::move(packet->m_inner), sender, destination);
         }
-
+        
     private:
         Router& m_inner;
     };

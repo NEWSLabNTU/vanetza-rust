@@ -17,3 +17,4 @@
 #include "vanetza_wrapper/btp/data_indication.hpp"
 #include "vanetza_wrapper/btp/data_interface.hpp"
 #include "vanetza_wrapper/btp/header_conversion.hpp"
+#include "vanetza_wrapper/btp/header_wrapper.hpp"

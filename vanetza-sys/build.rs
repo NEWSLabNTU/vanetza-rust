@@ -18,6 +18,7 @@ const VANETZA_LIBRARIES: &[&str] = &[
     "vanetza_gnss",
     "vanetza_net",
     "vanetza_security",
+    "vanetza_socktap",
 ];
 
 fn main() {
@@ -33,6 +34,8 @@ fn main() {
 
     // Link to GeographicLib, a required dependency of Vanetza.
     link_geographic_lib();
+    link_crypto_lib();
+    link_boost_lib();
 
     save_bindings();
 }
@@ -40,7 +43,7 @@ fn main() {
 fn build_vanetza() -> PathBuf {
     // Compile the Vanetza source code using CMake.
     let dst_dir = cmake::Config::new("../vanetza").build_arg("-j").build();
-
+    
     // Link Vanetza libraries
     let lib_dir = dst_dir.join("lib");
 
@@ -93,6 +96,32 @@ fn link_geographic_lib() {
     for lib in lib.libs {
         println!("cargo:rustc-link-lib=static={lib}");
     }
+}
+fn link_crypto_lib() {
+    let lib = pkg_config::probe_library("libcrypto++")
+        .expect("Unable to find libcrypto. Is it installed on your system?");
+
+    for link_path in lib.link_paths {
+        println!("cargo:rustc-link-search=native={}", link_path.display());
+    }
+    for lib in lib.libs {
+        println!("cargo:rustc-link-lib=static={lib}");
+    }
+}
+
+fn link_boost_lib() {
+    // let lib = pkg_config::probe_library("libboost_program_options")
+    //     .expect("Unable to find boost. Is it installed on your system?");
+
+
+    // for link_path in lib.link_paths {
+    //     println!("cargo:rustc-link-search=native={}", link_path.display());
+    // }
+    // for lib in lib.libs {
+    //     println!("cargo:rustc-link-lib=static={lib}");
+    // }
+    println!("cargo:rustc-link-search=native=/lib/x86_64-linux-gnu/");
+    println!("cargo:rustc-link-lib=static=boost_program_options");
 }
 
 fn save_bindings() {

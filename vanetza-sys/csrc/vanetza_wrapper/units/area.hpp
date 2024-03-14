@@ -14,7 +14,8 @@ namespace units
     public:
         AreaWrapper(Area src) :
             m_inner(src)
-        {}
+        {
+        }
 
         AreaWrapper(double square_meters) :
             m_inner(square_meters * boost::units::si::square_meter)
