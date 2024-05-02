@@ -35,8 +35,7 @@ include_cpp! {
     #include "vanetza/btp/header.hpp"
     #include "vanetza/btp/port_dispatcher.hpp"
     #include "vanetza/btp/ports.hpp"
-    //#include "vanetza/socktap/test.hpp"
-    //#include "tools/socktap/main.cpp"
+    #include "vanetza/btp_write/btpb_write.hpp"
     // NOTICE: This include must be placed the end of the list.
     #include "vanetza_wrapper.hpp"
 
@@ -165,14 +164,13 @@ include_cpp! {
     generate!("vanetza::btp::HeaderB")
     generate!("vanetza::btp::serialize")
     generate!("vanetza::btp::deserialize")
-
+    generate!("btpb_write")
     // // vanetza/btp/port_dispatcher.hpp using wrapper
     //generate!("vanetza::btp::PortDispatcher")
 
     // vanetza/btp/ports.hpp
     //generate_ns!("vanetza::btp::ports")
 
-    generate!("test")
     // vanetza_wrapper.hpp
     generate_ns!("vanetza_wrapper")
 

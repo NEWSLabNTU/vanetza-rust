@@ -18,7 +18,7 @@ const VANETZA_LIBRARIES: &[&str] = &[
     "vanetza_gnss",
     "vanetza_net",
     "vanetza_security",
-    "vanetza_socktap",
+    "vanetza_btp_write",
 ];
 
 fn main() {
@@ -35,8 +35,7 @@ fn main() {
     // Link to GeographicLib, a required dependency of Vanetza.
     link_geographic_lib();
     link_crypto_lib();
-    link_boost_lib();
-
+    link_lib();
     save_bindings();
 }
 
@@ -109,18 +108,26 @@ fn link_crypto_lib() {
     }
 }
 
-fn link_boost_lib() {
-    // let lib = pkg_config::probe_library("libboost_program_options")
-    //     .expect("Unable to find boost. Is it installed on your system?");
 
-    // for link_path in lib.link_paths {
-    //     println!("cargo:rustc-link-search=native={}", link_path.display());
-    // }
-    // for lib in lib.libs {
-    //     println!("cargo:rustc-link-lib=static={lib}");
+
+fn link_lib() {
+    // let link_lib = ["dbus-1","systemd","liblzma","libzstd","liblz4","libpcap","libgps"];
+    // for link in link_lib.iter() {
+    //     let lib = pkg_config::probe_library(*link)
+    //         .expect("Unable to find lib. Is it installed on your system?");
+
+    //     for link_path in lib.link_paths {
+    //         println!("cargo:rustc-link-search=native={}", link_path.display());
+    //     }
+
+    //     for lib in lib.libs {
+    //         println!("cargo:rustc-link-lib=static={lib}");
+    //     } 
     // }
     println!("cargo:rustc-link-search=native=/lib/x86_64-linux-gnu/");
     println!("cargo:rustc-link-lib=static=boost_program_options");
+
+
 }
 
 fn save_bindings() {
