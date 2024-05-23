@@ -10,7 +10,6 @@
 <a href="#8" id="8">8</a>
 <a href="#9" id="9">9</a>
 <a href="#10" id="10">10</a>
-<a href="#11" id="11">11</a>
 </pre></div><pre class="rust"><code><span class="kw">use </span>cxx::CxxString;
 <span class="kw">use </span>vanetza_sys::btpb_write;
 <span class="kw">use </span>vanetza_sys::btpb_read;
@@ -18,7 +17,6 @@
 <span class="kw">use </span>std::pin::Pin;
 <span class="kw">fn </span>main(){
     <span class="macro">let_cxx_string!</span>(buf = <span class="string">""</span>);
-    <span class="comment">//let buf_ref = buf.as_ref();
-    </span><span class="kw">let </span>a = btpb_read(<span class="string">"lo"</span>,buf.as_mut());
-    <span class="macro">println!</span>(<span class="string">"{:?}"</span>,buf);
+    btpb_read(<span class="string">"lo"</span>,buf.as_mut());
+    btpb_write(<span class="string">"lo"</span>,<span class="string">b"newslab"</span>.as_slice());
 }</code></pre></div></section></main></body></html>
