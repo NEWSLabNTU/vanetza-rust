@@ -6,5 +6,5 @@ use std::pin::Pin;
 fn main(){
     let_cxx_string!(buf = "");
     btpb_read("lo",buf.as_mut());
-    btpb_write("lo",b"newslab".as_slice());
+    btpb_write("lo","newslab");
 }
