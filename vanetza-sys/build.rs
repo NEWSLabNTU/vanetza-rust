@@ -108,8 +108,6 @@ fn link_crypto_lib() {
     }
 }
 
-
-
 fn link_lib() {
     // let link_lib = ["dbus-1","systemd","liblzma","libzstd","liblz4","libpcap","libgps"];
     // for link in link_lib.iter() {
@@ -122,12 +120,10 @@ fn link_lib() {
 
     //     for lib in lib.libs {
     //         println!("cargo:rustc-link-lib=static={lib}");
-    //     } 
+    //     }
     // }
     println!("cargo:rustc-link-search=native=/lib/x86_64-linux-gnu/");
     println!("cargo:rustc-link-lib=static=boost_program_options");
-
-
 }
 
 fn save_bindings() {
