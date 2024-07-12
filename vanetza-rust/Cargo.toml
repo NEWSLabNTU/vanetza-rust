@@ -4,13 +4,13 @@ version = "0.1.0"
 edition = "2021"
 
 [dependencies]
-autocxx = "0.26.0"
-chrono = "0.4.34"
-cxx = "1.0.118"
-mac_address = "1.1.5"
+autocxx = "0.27.0"
+chrono = "0.4.38"
+cxx = "1.0.124"
+mac_address = "1.1.7"
 num-derive = "0.4.2"
-num-traits = "0.2.18"
-uom = "0.35.0"
+num-traits = "0.2.19"
+uom = "0.36.0"
 vanetza-sys = { version = "0.1.0", path = "../vanetza-sys" }
 
 [features]
